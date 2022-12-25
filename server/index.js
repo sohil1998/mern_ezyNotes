@@ -22,5 +22,5 @@ app.get("/", requireToken, (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log("hrllow");
+  console.log("hello");
 });

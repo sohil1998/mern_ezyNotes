@@ -4,29 +4,61 @@ const auth = require("../middlewares/authTokenRequired");
 const router = new express.Router();
 
 //creat note
-router.post("/notes/create", auth, async (req, res) => {
+router.post("/notes/create", async (req, res) => {
+  const { title, content, updateDate, userId } = req.body;
   const note = new Note({
-    ...req.body,
-    owner: req.user._id,
+    title,
+    content,
+    updateDate,
+    userId,
   });
   try {
     await note.save();
     res.status(201).send({
       note,
-      message: "Note saved successfully",
+      msg: "Note saved successfully",
     });
   } catch (error) {
-    res.status(500).send(e);
+    res.status(500).send(error);
   }
 });
 
 //get all note
-router.post("/notes/get", auth, async (req, res) => {
+router.post("/notes/get", async (req, res) => {
+  const { userId } = req.body;
+  Note.find({ userId: userId }).then(async (result) => {
+    if (result) {
+      res.send({ data: result });
+    }
+  });
+});
+
+//get note data by id
+router.post("/notes/getbyid", async (req, res) => {
+  const { noteId } = req.body;
+  Note.find({ _id: noteId }).then(async (result) => {
+    if (result) {
+      res.send({ data: result });
+    }
+  });
+});
+
+//update note
+router.post("/notes/updateById", async (req, res) => {
+  const { title, content, updateDate, noteId } = req.body;
+  const noteOfId = await Note.findOne({ noteId: noteId });
   try {
-    await req.user.populate("notes");
-    res.status(200).send(req.user.notes);
+    await noteOfId.updateOne({
+      title: title || noteOfId.title,
+      content: content || noteOfId.content,
+      updateDate,
+      noteId,
+    });
+    res.status(201).send({
+      msg: "Note updated successfully",
+    });
   } catch (error) {
-    res.status(500).send(e);
+    res.status(500).send(error);
   }
 });
 

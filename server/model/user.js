@@ -27,15 +27,15 @@ userSchema.virtual("notes", {
   foreignField: "owner",
 });
 
-userSchema.methods.toJSON = function () {
-  const user = this;
-  const userObject = user.toObject();
+// userSchema.methods.toJSON = function () {
+//   const user = this;
+//   const userObject = user.toObject();
 
-  delete userObject.password();
-  delete userObject.token();
+//   delete userObject.password();
+//   delete userObject.token();
 
-  return userObject;
-};
+//   return userObject;
+// };
 
 userSchema.pre("save", async function (next) {
   const user = this;
