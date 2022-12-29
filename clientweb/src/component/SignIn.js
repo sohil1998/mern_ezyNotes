@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router";
 
 function Signin() {
   const [email, setEmail] = useState("");
@@ -7,12 +8,22 @@ function Signin() {
   const [mobile, setMobile] = useState("");
   const [signUp, setSignUp] = useState(false);
 
+  const navigate = useNavigate();
+
+  const creatAccountOrSignIN = () => {
+    signUp ? setSignUp(false) : setSignUp(true);
+  };
+
+  const signUpFunc = () => {
+    navigate("/home");
+  };
+
   return (
     <div className="fullWidth">
       <div className="signinRoot">
         <div className="Col">
           {signUp && (
-            <>
+            <div>
               <input
                 type="text"
                 className="FormInput"
@@ -33,7 +44,7 @@ function Signin() {
                   setMobile(e.target.value);
                 }}
               />
-            </>
+            </div>
           )}
           <input
             type="text"
@@ -55,9 +66,14 @@ function Signin() {
               setPassword(e.target.value);
             }}
           />
-          <div className="button">
+          <button
+            className="button"
+            onClick={() => {
+              signUpFunc();
+            }}
+          >
             <h3 className="textStyle1">{signUp ? "Sign up" : "Sign in"}</h3>
-          </div>
+          </button>
           <div className="Row-Spacebtn">
             <button className="noStyle">
               <h4 className="textStyle2">Forgot password ?</h4>
@@ -65,7 +81,7 @@ function Signin() {
             <button
               className="noStyle"
               onClick={() => {
-                signUp ? setSignUp(false) : setSignUp(true);
+                creatAccountOrSignIN();
               }}
             >
               <h4 className="textStyle2">

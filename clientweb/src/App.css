@@ -142,3 +142,14 @@
 .noStyle {
   background: none;
 }
+
+.noteCard {
+  height: 250px;
+  width: 308px;
+  background: rgb(206, 204, 204);
+  border-radius: 10px;
+  margin-left: 20px;
+  margin: 1rem 2rem 1rem 1rem;
+  text-align: center;
+  transition: all 0.2s ease-in-out;
+}

@@ -1,6 +1,7 @@
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import SigninPage from "./pages/SigninPage";
+import Home from "./pages/Home";
 
 function App() {
   return (
@@ -8,8 +9,8 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<SigninPage />} />
-          {/* <Route path="/dashboard" element={<DashboardPage />} />
-                    <Route path="/create" element={<CreatePage />} />
+          <Route path="/home" element={<Home />} />
+          {/*      <Route path="/create" element={<CreatePage />} />
 
                     <Route path="/deletetask/:id" element={<DeletePage />} /> */}
         </Routes>
